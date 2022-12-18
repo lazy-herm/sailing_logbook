@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import {getDatabase} from 'firebase/database';
+import { ref, getDatabase, update, push, child } from "firebase/database";
+
 // import { getAnalytics } from "firebase/analytics";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -15,12 +16,33 @@ const firebaseConfig = {
   messagingSenderId: "502893620440",
   appId: "1:502893620440:web:fa449e2e7717dbb3ff7bad",
   measurementId: "G-9FXVZFNYDK",
-  databaseURL: "https://sailing-logbook-d63f8-default-rtdb.europe-west1.firebasedatabase.app"
+  databaseURL:
+    "https://sailing-logbook-d63f8-default-rtdb.europe-west1.firebasedatabase.app",
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getDatabase(app);
 // const analytics = getAnalytics(app);
+
+export const updateData = (path, formData) => {
+  const newPostKey = push(child(ref(db), path)).key;
+  const updateData = {};
+  for (const [key, value] of formData.entries()) {
+    updateData[key] = value;
+  }
+  const upd = {};
+  upd[path + "/" + newPostKey] = updateData;
+
+  update(ref(db), upd)
+    .then(() => {
+      console.log("updated");
+    })
+    .catch((error) => {
+      // The write failed...
+      console.log("failed update");
+      console.log(error);
+    });
+};
 
 export default app;

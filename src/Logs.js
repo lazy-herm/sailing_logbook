@@ -5,19 +5,10 @@ import { ref, onValue } from "firebase/database";
 import LogTable from "./LogTable";
 import LogForm from "./LogForm";
 import Table from "react-bootstrap/Table";
-import Button from "react-bootstrap/Button";
 
 const Logs = () => {
   const ctx = useContext(AuthContext);
-  const [logData, setLogData] = useState(null);
-  const [logFormClass, setLogFormClass] = useState('none');
-  const addLogButton = (event) =>{
-    if(logFormClass === 'none'){
-      setLogFormClass('table-row');
-    }else{
-      setLogFormClass('none');
-    }
-  }
+  const [logData, setLogData] = useState(null);  
   useEffect(() => {
     const userRef = ref(db, "logs/" + ctx.isLoggedIn);
     onValue(userRef, (snapshot) => {
@@ -57,12 +48,7 @@ const Logs = () => {
         </thead>
         <tbody>
           <LogTable data={logData} fields={fields}></LogTable>
-          <LogForm fields={fields} class={logFormClass}></LogForm>
-          <tr>
-            <td colSpan={fields.length}>
-              <Button onClick={addLogButton}>Add Log</Button>
-            </td>
-          </tr>
+          <LogForm fields={fields} colspan={fields.length}></LogForm>
         </tbody>
       </Table>
     </div>
