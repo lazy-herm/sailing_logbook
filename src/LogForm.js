@@ -7,14 +7,13 @@ import app from "./firebase";
 import {
   ref,
   getDatabase,
-  onValue,
-  set,
   update,
   push,
   child,
 } from "firebase/database";
 import AuthContext from "./AuthContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
+import './css/LogForm.css';
 
 const LogForm = (props) => {
   const formRef = React.createRef();
@@ -24,16 +23,10 @@ const LogForm = (props) => {
     const db = getDatabase(app);
     onAuthStateChanged(getAuth(app), (user) => {
       if (user) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/firebase.User
         console.log("user is logged in");
         const uid = user.uid;
-        // ...
       } else {
         console.log("user is logged OUT");
-
-        // User is signed out
-        // ...
       }
     });
     const key = "logs/" + ctx.isLoggedIn;
@@ -59,17 +52,17 @@ const LogForm = (props) => {
 
   return (
     <Fragment>
-      <tr>
+      <tr style={{display:props.class}}>
         <td colSpan={props.fields.length}>
           <Form ref={formRef} onSubmit={logFormHandler}>
             <Row>
-              {props.fields.map((field) => {
+              {props.fields.map((field,index) => {
                 return (
-                  <Col>
+                  <Col key={'col'+index}>
                     {field.sub_field &&
                       field.sub_field.map((subfield) => {
                         return (
-                          <Form.Group>
+                          <Form.Group key={'fromGroup'+subfield.name}>
                             <Form.Label className="text-capitalize">
                               {subfield.name}
                             </Form.Label>

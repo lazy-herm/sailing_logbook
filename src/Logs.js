@@ -10,7 +10,14 @@ import Button from "react-bootstrap/Button";
 const Logs = () => {
   const ctx = useContext(AuthContext);
   const [logData, setLogData] = useState(null);
- 
+  const [logFormClass, setLogFormClass] = useState('none');
+  const addLogButton = (event) =>{
+    if(logFormClass === 'none'){
+      setLogFormClass('table-row');
+    }else{
+      setLogFormClass('none');
+    }
+  }
   useEffect(() => {
     const userRef = ref(db, "logs/" + ctx.isLoggedIn);
     onValue(userRef, (snapshot) => {
@@ -49,13 +56,13 @@ const Logs = () => {
           </tr>
         </thead>
         <tbody>
+          <LogTable data={logData} fields={fields}></LogTable>
+          <LogForm fields={fields} class={logFormClass}></LogForm>
           <tr>
             <td colSpan={fields.length}>
-              <Button>Add Log</Button>
+              <Button onClick={addLogButton}>Add Log</Button>
             </td>
           </tr>
-          <LogForm fields={fields}></LogForm>
-          <LogTable data={logData} fields={fields}></LogTable>
         </tbody>
       </Table>
     </div>
