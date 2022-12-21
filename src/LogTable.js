@@ -9,23 +9,23 @@ const LogTable = (props) => {
         </tr>
       )}
       {props.data &&
-        Object.entries(props.data).map((entry) => {
+        Object.entries(props.data).map((entry, index) => {
           return (
-            <tr>
-              {props.fields.map((field) => {
+            <tr key={index}>
+              {props.fields.map((field,index) => {
                 if (field.sub_field) {
                   return (
-                    <td>
+                    <td key={index}>
                       {field.sub_field.map((subfield) => {
-                        return Object.entries(entry[1]).map((logdetail) => {
-                          return logdetail[0] === subfield.name && <p>{logdetail[1]}</p>;
+                        return Object.entries(entry[1]).map((logdetail,index) => {
+                          return logdetail[0] === subfield.name && <p key={index}>{logdetail[1]}</p>;
                         });
                       })}
                     </td>
                   );
                 } else {
                   return (
-                    <td>
+                    <td key={index}>
                       {Object.entries(entry[1]).map((logdetail) => {
                         return logdetail[0] === field.name && logdetail[1];
                       })}

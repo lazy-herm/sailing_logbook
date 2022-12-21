@@ -8,7 +8,7 @@ import AuthContext from "./AuthContext";
 import "./css/LogForm.css";
 import DateField from "./Form/DateField";
 import VesselField from "./Form/VesselField";
-
+import VoyageFields from "./Form/VoyageFields";
 
 const LogForm = (props) => {
   const formRef = React.createRef();
@@ -48,9 +48,10 @@ const LogForm = (props) => {
             </Row>
             <Row>
               <Col>
-              <VesselField></VesselField>
+                <VesselField />
               </Col>
               <Col>
+                <VoyageFields></VoyageFields>
               </Col>
             </Row>
             <Row>
