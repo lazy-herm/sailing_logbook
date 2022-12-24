@@ -7,7 +7,6 @@ import Row from "react-bootstrap/Row";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
 
-
 const TagInput = (props) => {
   const [listItems, setListItems] = useState([]);
   const textArea = useRef(null);
@@ -31,34 +30,43 @@ const TagInput = (props) => {
   };
 
   return (
-      <Fragment>
-        <select
-          id="tags"
-          className="form-control select2-hidden-accessible"
-          aria-hidden="true"
-          name={props.name}
-          multiple
-        ></select>
-        <InputGroup
-          style={{
-            padding: "5px",
-            border: "1px solid #ced4da ",
-            flexDirection: "row",
-          }}
-        >
-          <Col>
+    <Fragment>
+      <select
+        id="tags"
+        className="form-control select2-hidden-accessible"
+        aria-hidden="true"
+        name={props.name}
+        multiple
+      ></select>
+      <InputGroup
+        style={{
+          padding: "5px",
+          flexDirection: "row",
+          border: "1px solid #ced4da",
+          margin: "2.5px 2.5px 2.5px 0px",
+          borderRadius: "10px",
+        }}
+      >
+        <Col>
           <Row>
-            <Form.Label className="text-capitalize"> {props.label}</Form.Label>
+            <Form.Label
+              className="text-capitalize"
+              style={{ textAlign: "left" }}
+            >
+              {" "}
+              {props.label}
+            </Form.Label>
           </Row>
-          <Row style={{margin:'auto 2.5px auto auto'}}>
+          <Row style={{ margin: "auto 2.5px auto auto" }}>
             {listItems &&
               listItems.map((item, index) => {
                 return (
                   <InputGroup
                     key={index}
                     style={{
-                      margin: "2.5px 2.5px 2.5px 2.5px ",
+                      margin: "2.5px",
                       width: "auto",
+                      padding: "0",
                     }}
                   >
                     <Button
@@ -88,8 +96,10 @@ const TagInput = (props) => {
               ref={textArea}
               onKeyDown={keyDownHandler}
               style={{
-                borderRadius: "10px 10px 10px 10px",
+                display: "flex",
+                borderRadius: "10px",
                 marginLeft: "2.5px",
+                width: "auto",
               }}
             />
           </Row>
@@ -98,9 +108,9 @@ const TagInput = (props) => {
               Use Tab key to enter individual harbours/locations
             </Form.Text>
           </Row>
-          </Col>
-        </InputGroup>
-      </Fragment>
+        </Col>
+      </InputGroup>
+    </Fragment>
   );
 };
 

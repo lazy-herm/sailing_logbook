@@ -3,12 +3,14 @@ import React, { Fragment, useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import updateData from "./firebase";
-import AuthContext from "./AuthContext";
-import "./css/LogForm.css";
-import DateField from "./Form/DateField";
-import VesselField from "./Form/VesselField";
-import VoyageFields from "./Form/VoyageFields";
+import updateData from "../firebase";
+import AuthContext from "../AuthContext";
+import "../css/LogForm.css";
+import DateField from "./DateField";
+import VesselField from "./VesselField";
+import VoyageFields from "./VoyageFields";
+import NumberInput from "./NumberInput";
+import TextInput from "./TextInput";
 
 const LogForm = (props) => {
   const formRef = React.createRef();
@@ -50,46 +52,45 @@ const LogForm = (props) => {
               <Col>
                 <VesselField />
               </Col>
+            </Row>
+            <Row>
               <Col>
                 <VoyageFields></VoyageFields>
               </Col>
             </Row>
             <Row>
-              {props.fields.map((field, index) => {
-                return (
-                  <Col key={"col" + index}>
-                    {field.sub_field &&
-                      field.sub_field.map((subfield) => {
-                        return (
-                          <Form.Group key={"fromGroup" + subfield.name}>
-                            <Form.Label className="text-capitalize">
-                              {subfield.name}
-                            </Form.Label>
-                            <Form.Control
-                              type={subfield.type}
-                              name={subfield.name}
-                            ></Form.Control>
-                          </Form.Group>
-                        );
-                      })}
-                    {!field.sub_field && (
-                      <Form.Group>
-                        <Form.Label className="text-capitalize">
-                          {field.name}
-                        </Form.Label>
-                        <Form.Control
-                          type={field.type}
-                          name={field.name}
-                        ></Form.Control>
-                      </Form.Group>
-                    )}
-                  </Col>
-                );
-              })}
+              <Col>
+                <NumberInput
+                  name="days_onboard"
+                  label="days on board"
+                  units="day(s)"
+                ></NumberInput>
+              </Col>
+              <Col>
+                <NumberInput
+                  name="distance"
+                  label="distance"
+                  units="NM"
+                ></NumberInput>
+              </Col>
+              <Col>
+                <NumberInput
+                  name="night_hours"
+                  label="night hours"
+                  units="hr(s)"
+                ></NumberInput>
+              </Col>
+              <Col>
+                <TextInput name="skipper_name" label="skipper name" />
+              </Col>
             </Row>
-            <Button type="submit" size="sm" className="btn-block">
-              Add
-            </Button>
+            <Row>
+              <Col>
+                <Button type="submit" size="sm" className="btn-block">
+                  Add
+                </Button>
+              </Col>
+            </Row>
           </Form>
         </td>
       </tr>

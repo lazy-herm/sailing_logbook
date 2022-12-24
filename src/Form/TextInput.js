@@ -3,7 +3,7 @@ import FloatingLabel from "react-bootstrap/FloatingLabel";
 
 const TextInput = (props) => {
   return (
-      <FloatingLabel className="text-capitalize" label={props.label}>
+      <FloatingLabel className="text-capitalize" label={props.label} >
         <Form.Control type="text" placeholder="text" name={props.name}></Form.Control>
       </FloatingLabel>
   );

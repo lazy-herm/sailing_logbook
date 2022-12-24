@@ -3,7 +3,7 @@ import AuthContext from "./AuthContext";
 import { useContext, useState, useEffect } from "react";
 import { ref, onValue } from "firebase/database";
 import LogTable from "./LogTable";
-import LogForm from "./LogForm";
+import LogForm from "./Form/LogForm";
 import Table from "react-bootstrap/Table";
 
 const Logs = () => {
