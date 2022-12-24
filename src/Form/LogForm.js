@@ -16,18 +16,18 @@ const LogForm = (props) => {
   const formRef = React.createRef();
   const ctx = useContext(AuthContext);
   const [logFormClass, setLogFormClass] = useState("none");
-  const [addLogButton, setAddLogButton] = useState("inline-block");
+  const [addLogButton, setAddLogButton] = useState("Add Log");
   const [cancelLogButton, setCancelLogButton] = useState("none");
 
-  const addLogButtonHandler = () => {
-    if (addLogButton === "inline-block") {
+  const addLogButtonHandler = (event) => {
+    console.log(event.target.innerHTML)
+
+    if (addLogButton === "Add Log") {
       setLogFormClass("table-row");
-      setAddLogButton("none");
-      setCancelLogButton("inline-block");
+      setAddLogButton("Cancel Log");
     } else {
       setLogFormClass("none");
-      setAddLogButton("inline-block");
-      setCancelLogButton("none");
+      setAddLogButton("Add Log");
     }
   };
   const logFormHandler = (event) => {
@@ -100,7 +100,7 @@ const LogForm = (props) => {
             onClick={addLogButtonHandler}
             style={{ display: addLogButton }}
           >
-            Add Log
+            {addLogButton}
           </Button>
           <Button
             onClick={addLogButtonHandler}
