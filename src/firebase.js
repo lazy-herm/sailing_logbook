@@ -26,11 +26,13 @@ export const db = getDatabase(app);
 // const analytics = getAnalytics(app);
 
 export const updateData = (path, formData) => {
+  console.log("update formula");
   const newPostKey = push(child(ref(db), path)).key;
   const updateData = {};
   for (const [key, value] of formData.entries()) {
     updateData[key] = value;
   }
+  console.log(updateData);
   const upd = {};
   upd[path + "/" + newPostKey] = updateData;
 

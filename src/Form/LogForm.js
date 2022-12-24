@@ -3,7 +3,7 @@ import React, { Fragment, useContext, useState } from "react";
 import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import updateData from "../firebase";
+import {updateData} from "../firebase";
 import AuthContext from "../AuthContext";
 import "../css/LogForm.css";
 import DateField from "./DateField";
@@ -17,11 +17,8 @@ const LogForm = (props) => {
   const ctx = useContext(AuthContext);
   const [logFormClass, setLogFormClass] = useState("none");
   const [addLogButton, setAddLogButton] = useState("Add Log");
-  const [cancelLogButton, setCancelLogButton] = useState("none");
 
-  const addLogButtonHandler = (event) => {
-    console.log(event.target.innerHTML)
-
+  const addLogButtonHandler = () => {
     if (addLogButton === "Add Log") {
       setLogFormClass("table-row");
       setAddLogButton("Cancel Log");
@@ -32,7 +29,8 @@ const LogForm = (props) => {
   };
   const logFormHandler = (event) => {
     event.preventDefault();
-    updateData("/logs" + ctx.isLoggedIn, new FormData(formRef.current));
+    console.log('hello');
+    updateData("/logs/" + ctx.isLoggedIn, new FormData(formRef.current));
   };
 
   return (
@@ -101,12 +99,6 @@ const LogForm = (props) => {
             style={{ display: addLogButton }}
           >
             {addLogButton}
-          </Button>
-          <Button
-            onClick={addLogButtonHandler}
-            style={{ display: cancelLogButton }}
-          >
-            Cancel New Log
           </Button>
         </td>
       </tr>
