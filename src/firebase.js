@@ -26,11 +26,16 @@ export const db = getDatabase(app);
 // const analytics = getAnalytics(app);
 
 export const updateData = (path, formData) => {
-  console.log("update formula");
   const newPostKey = push(child(ref(db), path)).key;
   const updateData = {};
+  console.log(formData.entries());
   for (const [key, value] of formData.entries()) {
-    updateData[key] = value;
+    console.log(formData.getAll(key));
+    if (Array.isArray(value)) {
+      updateData[key] = formData.getAll(key);
+    } else {
+      updateData[key] = value;
+    }
   }
   console.log(updateData);
   const upd = {};
@@ -46,5 +51,20 @@ export const updateData = (path, formData) => {
       console.log(error);
     });
 };
+
+
+export const deleteData =(path)=>{
+  const upd = {[path]:null};
+  console.log(upd);
+  update(ref(db), upd)
+    .then(() => {
+      console.log("updated");
+    })
+    .catch((error) => {
+      // The write failed...
+      console.log("failed update");
+      console.log(error);
+    });
+}
 
 export default app;

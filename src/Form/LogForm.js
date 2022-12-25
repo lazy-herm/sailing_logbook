@@ -29,7 +29,6 @@ const LogForm = (props) => {
   };
   const logFormHandler = (event) => {
     event.preventDefault();
-    console.log('hello');
     updateData("/logs/" + ctx.isLoggedIn, new FormData(formRef.current));
   };
 

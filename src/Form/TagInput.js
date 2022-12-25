@@ -32,12 +32,16 @@ const TagInput = (props) => {
   return (
     <Fragment>
       <select
-        id="tags"
         className="form-control select2-hidden-accessible"
         aria-hidden="true"
         name={props.name}
         multiple
-      ></select>
+        defaultValue={listItems}
+      >
+        {listItems && listItems.map((item, index)=>{
+          return(<option key={index+item} value={item}></option>)
+        })}
+      </select>
       <InputGroup
         style={{
           padding: "5px",

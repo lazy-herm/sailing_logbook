@@ -1,6 +1,15 @@
-import { Fragment } from "react";
+import { Fragment, useContext } from "react";
+import Button from 'react-bootstrap/Button';
+import AuthContext from "./AuthContext";
+import { deleteData } from "./firebase";
 
 const LogTable = (props) => {
+  const ctx = useContext(AuthContext);
+  const deleteHandler = (event) => {
+    console.log(event.target.value);
+    deleteData('/logs/'+ctx.isLoggedIn+'/'+event.target.value);
+  };
+
   return (
     <Fragment>
       {!props.data && (
@@ -12,14 +21,20 @@ const LogTable = (props) => {
         Object.entries(props.data).map((entry, index) => {
           return (
             <tr key={index}>
-              {props.fields.map((field,index) => {
+              {props.fields.map((field, index) => {
                 if (field.sub_field) {
                   return (
                     <td key={index}>
                       {field.sub_field.map((subfield) => {
-                        return Object.entries(entry[1]).map((logdetail,index) => {
-                          return logdetail[0] === subfield.name && <p key={index}>{logdetail[1]}</p>;
-                        });
+                        return Object.entries(entry[1]).map(
+                          (logdetail, index) => {
+                            return (
+                              logdetail[0] === subfield.name && (
+                                <p key={index}>{logdetail[1]}</p>
+                              )
+                            );
+                          }
+                        );
                       })}
                     </td>
                   );
@@ -33,6 +48,9 @@ const LogTable = (props) => {
                   );
                 }
               })}
+              <td>
+                <Button onClick={deleteHandler} value={entry[0]}>x</Button>
+              </td>
             </tr>
           );
         })}
