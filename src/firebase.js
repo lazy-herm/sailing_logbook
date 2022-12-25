@@ -30,8 +30,7 @@ export const updateData = (path, formData) => {
   const updateData = {};
   console.log(formData.entries());
   for (const [key, value] of formData.entries()) {
-    console.log(formData.getAll(key));
-    if (Array.isArray(value)) {
+    if (formData.getAll(key).length > 1) {
       updateData[key] = formData.getAll(key);
     } else {
       updateData[key] = value;

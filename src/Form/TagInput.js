@@ -36,7 +36,7 @@ const TagInput = (props) => {
         aria-hidden="true"
         name={props.name}
         multiple
-        defaultValue={listItems}
+        value={listItems}
       >
         {listItems && listItems.map((item, index)=>{
           return(<option key={index+item} value={item}></option>)
