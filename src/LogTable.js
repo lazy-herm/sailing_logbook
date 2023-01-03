@@ -3,6 +3,7 @@ import Button from 'react-bootstrap/Button';
 import AuthContext from "./AuthContext";
 import { deleteData } from "./firebase";
 import Dates from "./Table/Dates";
+import SimpleCell from "./Table/SimpleCell";
 import Vessel from './Table/Vessel';
 import Voyage from './Table/Voyage';
 
@@ -26,33 +27,10 @@ const LogTable = (props) => {
               <Dates start_date={entry[1]['start date']} end_date={entry[1]['end date']} />
               <Vessel data={entry[1]} />
               <Voyage data={entry[1]} />
-              {props.fields.map((field, index) => {
-                if (field.sub_field) {
-                  return (
-                    <td key={index}>
-                      {field.sub_field.map((subfield) => {
-                        return Object.entries(entry[1]).map(
-                          (logdetail, index) => {
-                            return (
-                              logdetail[0] === subfield.name && (
-                                <p key={index}>{logdetail[1]}</p>
-                              )
-                            );
-                          }
-                        );
-                      })}
-                    </td>
-                  );
-                } else {
-                  return (
-                    <td key={index}>
-                      {Object.entries(entry[1]).map((logdetail) => {
-                        return logdetail[0] === field.name && logdetail[1];
-                      })}
-                    </td>
-                  );
-                }
-              })}
+              <SimpleCell data={entry[1].days_onboard} unit='day' unitPlural='days' />
+              <SimpleCell data={entry[1].distance} unit="NM" />
+              <SimpleCell data={entry[1].night_hours} unit="hr" unitPLural='hrs' />
+              <SimpleCell data={entry[1].skipper_name} />
               <td>
                 <Button onClick={deleteHandler} value={entry[0]}>x</Button>
               </td>
