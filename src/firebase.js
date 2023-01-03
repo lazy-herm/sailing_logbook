@@ -28,7 +28,7 @@ export const db = getDatabase(app);
 export const updateData = (path, formData) => {
   const newPostKey = push(child(ref(db), path)).key;
   const updateData = {};
-  console.log(formData.entries());
+  // console.log(formData.entries());
   for (const [key, value] of formData.entries()) {
     if (formData.getAll(key).length > 1) {
       updateData[key] = formData.getAll(key);
@@ -36,13 +36,13 @@ export const updateData = (path, formData) => {
       updateData[key] = value;
     }
   }
-  console.log(updateData);
+  // console.log(updateData);
   const upd = {};
   upd[path + "/" + newPostKey] = updateData;
 
   update(ref(db), upd)
     .then(() => {
-      console.log("updated");
+      // console.log("updated");
     })
     .catch((error) => {
       // The write failed...
@@ -54,10 +54,9 @@ export const updateData = (path, formData) => {
 
 export const deleteData =(path)=>{
   const upd = {[path]:null};
-  console.log(upd);
   update(ref(db), upd)
     .then(() => {
-      console.log("updated");
+      // console.log("updated");
     })
     .catch((error) => {
       // The write failed...

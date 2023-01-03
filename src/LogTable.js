@@ -2,11 +2,13 @@ import { Fragment, useContext } from "react";
 import Button from 'react-bootstrap/Button';
 import AuthContext from "./AuthContext";
 import { deleteData } from "./firebase";
+import Dates from "./Table/Dates";
+import Vessel from './Table/Vessel';
+import Voyage from './Table/Voyage';
 
 const LogTable = (props) => {
   const ctx = useContext(AuthContext);
   const deleteHandler = (event) => {
-    console.log(event.target.value);
     deleteData('/logs/'+ctx.isLoggedIn+'/'+event.target.value);
   };
 
@@ -21,6 +23,9 @@ const LogTable = (props) => {
         Object.entries(props.data).map((entry, index) => {
           return (
             <tr key={index}>
+              <Dates start_date={entry[1]['start date']} end_date={entry[1]['end date']} />
+              <Vessel data={entry[1]} />
+              <Voyage data={entry[1]} />
               {props.fields.map((field, index) => {
                 if (field.sub_field) {
                   return (

@@ -37,6 +37,7 @@ const TagInput = (props) => {
         name={props.name}
         multiple
         value={listItems}
+        readOnly
       >
         {listItems && listItems.map((item, index)=>{
           return(<option key={index+item} value={item}></option>)
